@@ -1,0 +1,27 @@
+\begin{picture}(0,0)%
+\includegraphics{DSA.pdf}%
+\end{picture}%
+\setlength{\unitlength}{1973sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(3930,2042)(1861,-1161)
+\put(2476,614){\makebox(0,0)[lb]{\smash{{\SetFigFont{11}{13.2}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\A$}%
+}}}}
+\put(2784,-721){\makebox(0,0)[b]{\smash{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$q_1$}%
+}}}}
+\put(1876,-361){\makebox(0,0)[rb]{\smash{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$a,~ -t(1-\lambda)$}%
+}}}}
+\put(1876,-736){\makebox(0,0)[rb]{\smash{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$b,~ 1-t(1-\lambda)$}%
+}}}}
+\put(4876,-736){\makebox(0,0)[b]{\smash{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$q_2$}%
+}}}}
+\put(5776,-361){\makebox(0,0)[lb]{\smash{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$a,~ t(1-\lambda)$}%
+}}}}
+\put(5776,-736){\makebox(0,0)[lb]{\smash{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$b,~ -1+t(1-\lambda)$}%
+}}}}
+\end{picture}%
