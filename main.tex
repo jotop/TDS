@@ -11,9 +11,7 @@
 \usepackage{dsfont}
 \usepackage{mathtools,environ}
 \usepackage{thmtools,thm-restate,tikz}
-\usetikzlibrary{arrows,automata,decorations.pathmorphing}
-\usetikzlibrary{positioning}
-\usetikzlibrary{shapes,shapes.geometric,fit,calc,automata,}
+\usetikzlibrary{arrows,automata,decorations.pathmorphing,positioning,shapes,shapes.geometric,fit,calc}
 
 
 % Used for making an unnumbered footnote
@@ -267,7 +265,7 @@ We denote the value of a representation $w$ in base $\beta$ by $w_{[\beta]}$ (an
 
 When dealing with a nonintegral base $\beta >1$, the representations are still required to only contain digits that stand for natural numbers. A well known result \cite{Ren57} is that all real numbers have a $\beta$-representation, using the numbers $\{0,1,2,\ldots,\ceil{\beta-1} \}$ as digits. In general, there might be several, and even infinitely many, representations to the same number \cite{EJK94}. (For an analysis of the numbers with unique representations see \cite{GS01}.)
 
-\Paragraph{Greedy and lazy explorations} The most common scheme for generating a representation for a given number is the \emph{greedy exploration} (\emph{greedy expansion}) \cite{Ren57}, going from left to right, and adding at each position the maximal possible digit. For example, when representing $\frac{5}{8}$ in binary, we start with the digit \Do for the value $\frac{1}{2}$, getting a \emph{remainder} of $\frac{1}{8}$. We cannot continue with another \Do, since $\frac{1}{4}>\frac{1}{8}$, so we put \Dz (and the remainder is still $\frac{1}{8}$). We then put \Do for $\frac{1}{8}$, and we are done, as the remainder is $0$, getting the representation $.101_{[2]}$. Note that the greedy exploration provides the largest possible representation, lexicographic wise. Another common scheme is the \emph{lazy exploration} (\emph{lazy expansion}), adding at each position the minimal possible digit, providing the minimal possible representation, lexicographic wise.
+\Paragraph{Greedy and lazy explorations} The most common scheme for generating a representation for a given number is the \emph{greedy exploration} (\emph{greedy expansion}) \cite{Ren57}, going from left to right, and adding at each position the maximal possible digit. For example, when representing $\frac{5}{8}$ in binary, we start with the digit \Do for the value $\frac{1}{2}$, getting a \emph{remainder} of $\frac{1}{8}$. We cannot continue with another \Do, since $\frac{1}{4}>\frac{1}{8}$, so we put \Dz (and the remainder is still $\frac{1}{8}$). We then put \Do for $\frac{1}{8}$, and we are done, as the remainder is $0$, getting the representation $.101_{[2]}$. Note that the greedy exploration provides the largest possible representation, lexicographically. Another common scheme is the \emph{lazy exploration} (\emph{lazy expansion}), adding at each position the minimal possible digit, providing the minimal possible representation, lexicographically.
 Finally, a unifying scheme for greedy and lazy explorations is the \emph{nondeterministic exploration}, nondeterministically choosing at each step an 
 eligible digit, i.e., a digit such that the remainder is non-negative and is smaller than the maximal number that can be represented starting from the current position.
 
@@ -595,7 +593,7 @@ Now, let $\B$ be a nondeterministic B\"uchi automaton that recognizes the langua
 Consider the \CGTDS instance with a discount factor $\lambda=\frac{2}{3}$, a target $t=\frac{12}{5}$,
 weights $a=0$, $b=1$, and $c=2$, and an $\omega$-regular constraint 
 $e = \Sigma^*(\Sigma a)^\omega$, namely eventually the letter a occurs at every second position.
-We follow the proof of Theorem~\ref{thm:GTDSEventuallyPeriodic} for cheking whether it has an eventually-periodic solution. 
+We follow the proof of Theorem~\ref{thm:GTDSEventuallyPeriodic} for checking whether it has an eventually-periodic solution. 
 
 We start with building the safety automaton $\A$ of the relevant gaps along the exploration of $t$ (see Figure~\ref{fig:EP}):
 The first gap is $t \cdot \lambda = \frac{8}{5}$. The minimal relevant gap is $0$, the maximal relevant gap is 
@@ -701,7 +699,7 @@ as all its continuations will have denominators growing to infinity.
 
 \end{tikzpicture}
 
-\caption{The automata of the example for the proof of Theorem~\ref{thm:GTDSEventuallyPeriodic}: The safety automaton $\A$ for the exploration of the relevant gaps (stopping the exploration for too big/small gaps and for gaps with odd numerators), the B\"uchi automton $\B$ expressing the $\omega$-regular constraint, and the B\"uchi automton $\C$ for the intersection of $\A$ and $\B$.}
+\caption{The automata of the example for the proof of Theorem~\ref{thm:GTDSEventuallyPeriodic}: The safety automaton $\A$ for the exploration of the relevant gaps (stopping the exploration for too big/small gaps and for gaps with odd numerators), the B\"uchi automaton $\B$ expressing the $\omega$-regular constraint, and the B\"uchi automaton $\C$ for the intersection of $\A$ and $\B$.}
 \label{fig:EP}
 
 \end{figure}
@@ -742,7 +740,7 @@ We conclude the section with the result on the decidability of the generalized t
 \begin{restatable}{theorem}{GTDSFinite}
 \label{thm:GTDSFinite}
 Consider an instance $\P$ of \CGTDSF (or \GTDSF) with a regular constraint $e$, and a rational discount factor $\lambda=\frac{p}{q}$, a target $t=\frac{c}{d}$, and weights $\Dm{1} < \Dm{2} < \ldots < \Dm{k} \in \Rat$ with a common denominator $m\in\Nat$. Then the problem of whether $\P$ has an eventually-periodic solution is decidable in PSPACE.
-Moreover, if there is a solution to $\P$, then there is also a solution of length up to $4\cdot d(q-p) \cdot (|e|+2) \cdot \max(|\Dm{k}|,|\Dm{1}|) \cdot \frac{m}{1-\lambda}$.
+Moreover, if there is a solution to $\P$, then there is also a solution of length up to $4\cdot d(q-p) \cdot (|e|+2) \cdot \max(|\Dm{k}|,|\Dm{1}|) \cdot \frac{\lambda\cdot m}{1-\lambda}$.
 
 
 \end{restatable}
@@ -754,7 +752,7 @@ $t''= (t\cdot m) - \frac{\Dm{1}\cdot m}{1 - \lambda} =
 \frac{m (c(q-p) - d(\Dm{1}\cdot q))}{d(q-p)}$ 
 and the new highest weight is $\Dm{k}''=(\Dm{k}-\Dm{1})m$ if $\Dm{1}<0$ and $\Dm{k}>0$, or $\Dm{k}''=|\Dm{k}|m$ if $\Dm{1}\geq 0$ and $\Dm{k}>0$, or $\Dm{k}''=|\Dm{1}|m$ if $\Dm{1}<0$ and $\Dm{k}\leq0$, implying that in any case $\Dm{k}''\leq 2\max(|\Dm{k}|,|\Dm{1}|) \cdot m$.
 
-Hence, the PSPACE decidability and the bound on a shortest witness directly follows from Theorem~\ref{thm:GTDSEventuallyPeriodic}.
+Hence, the PSPACE decidability and the bound on a shortest witness directly follow from Theorem~\ref{thm:GTDSEventuallyPeriodic}.
 %See Example E at the end of the section.
 \end{proof}
 
@@ -801,7 +799,7 @@ all accepting runs of $\A$ on $w$ have the same value \cite{functional}. (Notice
 Given \DSAs $\A$ and $\B$ and a value $t\in\Rat$, 
 \begin{itemize}
 \item the \emph{exact-value} problems asks whether there exists a word $w$ such that $\A(w) = t$,
-\item the \emph{$<$-universality} (resp. \emph{$\leq$-universality}) problem asks whether for every word $w$ we have  $\A(w) < t$ (resp., $A(w) \leq t$).
+\item the \emph{$<$-universality} (resp. \emph{$\leq$-universality}) problem asks whether for every word $w$ we have  $\A(w) < t$ (resp., $\A(w) \leq t$).
 \item the \emph{$<$-inclusion} (resp. \emph{$\leq$-inclusion}) problem asks whether for every word $w$ we have  $\A(w) < \B(w)$ (resp., $\A(w) \leq \B(w)$).
 \end{itemize}
 
@@ -936,7 +934,7 @@ f(x) &=& \left\{\begin{array}{ll}
 {b \cdot q \cdot x} &~ \frac{\lambda}{1-\lambda} < x < 1\\[1ex]
 {x} &~ x = 1\\[1ex]
 {p \cdot x} &~ 1 < x < 2 \\[1ex]
-{x-1} &~ x  \geq 2 \}
+{x-1} &~ x  \geq 2 
 \end{array}\right.
 \end{eqnarray*}
 
