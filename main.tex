@@ -11,6 +11,10 @@
 \usepackage{dsfont}
 \usepackage{mathtools,environ}
 \usepackage{thmtools,thm-restate,tikz}
+\usetikzlibrary{arrows,automata,decorations.pathmorphing}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes,shapes.geometric,fit,calc,automata,}
+
 
 % Used for making an unnumbered footnote
 \makeatletter
@@ -206,10 +210,10 @@ We make the reduction in three steps:
 \begin{enumerate}
 \item We claim that every \TDS $\P$ with rational discount factor $0<\lambda<1$, target value $t$, and  weights $a$ and $b$,
 is equivalent to the \TDS $\P'$ with discount factor $\lambda$, target $t'=t - \frac{a}{1-\lambda}$, and weights $a'=0$ and $b'=b-a$. Indeed, subtracting $a$ from every element in a discounted-sum sequence $w\in\{a,b\}^\omega$, provides a discounted-sum sequence $w'\in\{0,b-a\}^\omega$, such that 
-$\sum_{i=1}^\infty w'(i)  \lambda^i = \sum_{i=1}^\infty w(i)\lambda^i - \sum_{i=1}^\infty a  \lambda^i = \sum_{i=1}^\infty w(i) \lambda^i - \frac{a}{1-\lambda}$.
+$\sum_{i=0}^\infty w'(i)  \lambda^i = \sum_{i=0}^\infty w(i)\lambda^i - \sum_{i=0}^\infty a  \lambda^i = \sum_{i=0}^\infty w(i) \lambda^i - \frac{a}{1-\lambda}$.
 %$w'=w- a  \sum_{i=0}^\infty \lambda^i = w - \frac{a}{1-\lambda}$. 
 \item We claim that the \TDS $\P'$ is equivalent to the \TDS $\P''$ with discount factor $\lambda$, target $t''= \frac{t'}{b'} = \frac{t-\lambda t -a}{(1-\lambda)(b-a)}$, and weights $a''=0$ and $b''=1$. Indeed, dividing every element in a discounted-sum sequence $w'\in\{0,b'\}^\omega$ by $b'$, provides a discounted-sum sequence $w''\in\{0,1\}^\omega$, such that 
-$\sum_{i=1}^\infty w''(i)  \lambda^i = \frac{1}{b'} \sum_{i=1}^\infty w'(i)  \lambda^i$.
+$\sum_{i=0}^\infty w''(i)  \lambda^i = \frac{1}{b'} \sum_{i=0}^\infty w'(i)  \lambda^i$.
 %$w''=w'/b'$. 
 \item The \TDS $\P''$ already uses the weights $0$ and $1$. It is obviously equivalent to the \TDSzo with a target $t''' = \lambda t'' = \frac{\lambda(t-\lambda t -a)}{(1-\lambda)(b-a)}$, starting the summation with $\lambda^1$ rather than with $\lambda^0$.
 \end{enumerate}
@@ -376,7 +380,7 @@ $t$ has an eventually-periodic $\beta$-representation with only \Dz's and \Do's 
 \begin{itemize}
 
 \item 
-Assume that there are finitely many different gaps in the greedy-exploration of $t$.. Then, there is a step $i$ in the exploration in which we get a gap $g$, such that $g$ was also the gap in some step $j<i$. Hence, the exploration will use in step $i+1$ the same digit that was used in step $j+1$, and by induction, the used digits will be eventually periodic, providing an eventually-periodic representation.
+Assume that there are finitely many different gaps in the greedy-exploration of $t$. Then, there is a step $i$ in the exploration in which we get a gap $g$, such that $g$ was also the gap in some step $j<i$. Hence, the exploration will use in step $i+1$ the same digit that was used in step $j+1$, and by induction, the used digits will be eventually periodic, providing an eventually-periodic representation.
 
 \item
 
@@ -493,14 +497,14 @@ and the least weight is $0$. Such a normal form generalizes \TDSzo.
 Consider an instance $\P$ of \CGTDS with a discount factor $\lambda$, a target $t$, weights $\Dm{1} < \ldots < \Dm{k} \in \Rat$, and a constraint $e$. 
 Let $M$ be the least common denominator of the weights. 
 We define a \CGTDS $\P'$ with a discount factor $\lambda$, a target $t'=t\cdot M$, weights $\Dm{1}'=\Dm{1}\cdot M, \ldots, \Dm{k}'=\Dm{k}\cdot M $, and a constraint $e'$ that is the same as $e$, just referring to $\Dm{i}'$ instead of $\Dm{i}$, for all $1\leq i \leq k$. Note that all the weights in $\P'$ are integers. Now, observe that  $\P$ has a solution (resp.\ eventually-periodic solution) iff $\P'$ has a solution (resp.\ eventually-periodic solution), since for every sequence $w$, we have $\sum_{i=0}^{|w|} M \cdot w(i)  \lambda^i = M \cdot \sum_{i=0}^{|w|}  w(i)  \lambda^i$.
-Finally, for having the least weight $0$, we subtract $\Dm{1}\cdot M$ from all weights, having the \CGTDS instance $\P''$ with a discount factor $\lambda$, a target $t''=(t\cdot M) - \frac{\Dm{1}\cdot M\cdot\lambda}{1 - \lambda}$, weights $\Dm{1}''=0, \Dm{2}''=(\Dm{2}-\Dm{1}) \cdot M, \ldots, \Dm{k}''=(\Dm{k}-\Dm{1})\cdot M $, and a constraint $e''$ that is the same as $e$, just referring to $\Dm{i}''$ instead of $\Dm{i}$, for all $1\leq i \leq k$.
+Finally, for having the least weight $0$, we subtract $\Dm{1}\cdot M$ from all weights, having the \CGTDS instance $\P''$ with a discount factor $\lambda$, a target $t''=(t\cdot M) - \frac{\Dm{1}\cdot M}{1 - \lambda}$, weights $\Dm{1}''=0, \Dm{2}''=(\Dm{2}-\Dm{1}) \cdot M, \ldots, \Dm{k}''=(\Dm{k}-\Dm{1})\cdot M $, and a constraint $e''$ that is the same as $e$, just referring to $\Dm{i}''$ instead of $\Dm{i}$, for all $1\leq i \leq k$.
 Notice that $\P''$ is in normal form and equivalent to $\P$ by an argument analogous to part I in the proof of Theorem~\ref{thm:TdsToTdszo}.
 %See Example E at the end of the section.
 \end{proof}
 
 \begin{exampleE}
 Consider a \GTDS with $\lambda = \frac{3}{5}$, weights $\frac{-1}{2}, 0, \frac{1}{2},\frac{2}{3}$ and the target $\frac{-99}{500}$. It reduces to 
-a \GTDS instance with the same $\lambda = \frac{3}{5}$, natural weights $0,3,6,7$ and the target $\frac{414}{125}$.
+a \GTDS instance with the same $\lambda = \frac{3}{5}$, natural weights $0,3,6,7$ and the target $\frac{789}{125}$.
 \end{exampleE}
 
 
@@ -566,58 +570,51 @@ Note that in the proof of Lemma \ref{lem:EventuallyPeriodicGaps} we did not stip
 \end{proof}
 
 We are now in place to provide the result on eventually-periodic sequences.
-\todo{multiply the target by $\lambda$}
 \begin{restatable}{theorem}{GTDSEventuallyPeriodic}
 \label{thm:GTDSEventuallyPeriodic}
 Consider an instance $\P$ of \CGTDS (or \GTDS) with a rational discount factor $\lambda$, a rational target $t=\frac{c}{d}$,  weights $\Dm{1} < \Dm{2} < \ldots < \Dm{k} \in \Nat$, and an $\omega$-regular constraint $e$. Then the problem of whether $\P$ has an eventually-periodic solution is decidable in PSPACE.
-Moreover, if there is an eventually-periodic solution to $\P$, then there is also a solution $u v^{\omega}$ with $|u| + |v| \leq 4\cdot d \cdot |e| \cdot \Dm{k}$.
+Moreover, if there is an eventually-periodic solution to $\P$, then there is also a solution $u v^{\omega}$ with $|u| + |v| \leq 2\cdot d \cdot |e| \cdot \frac{\lambda \Dm{k}}{1 - \lambda}$.
 \end{restatable}
 \begin{proof}
-In the case of $\GTDS$, the decision procedure is analogous to the proof of Lemma~\ref{lem:EP}, with the following differences: i) Rather than considering the presentation generated by the greedy exploration, we consider some representation generated by the nondeterministic exploration; ii) The upper bound on relevant gaps is $\frac{\lambda \Dm{k}}{1 - \lambda}\leq \Dm{k}$; 
-iii) The first gap is $t \cdot \lambda$ rather than $t$, i.e., we multiply the target by $\lambda$ 
-to make it consistent with \TDSzo, where the summation starts with $i=1$, 
+In the case of $\GTDS$, the decision procedure is analogous to the proof of Lemma~\ref{lem:EP}, with the following differences: i) Rather than considering the presentation generated by the greedy exploration, we consider some representation generated by the nondeterministic exploration; ii) The first gap is $t \cdot \lambda$ rather than $t$, i.e., we multiply the target by $\lambda$ 
+to make it consistent with the calculations made for \TDSzo, where the summation starts with $i=1$; iii) The upper bound on relevant gaps is $\frac{\lambda \Dm{k}}{1 - \lambda}$; 
 and iv) A decision is nondeterministically reached within $d \cdot \Dm{k}$ steps.
 Hence, the procedure runs in nondeterministic polynomial space in the binary representations of $\lambda, c, d, \Dm{1}, \ldots, \Dm{k}$. By 
 Savitch's Theorem, from which we have PSPACE = NPSPACE, we get the PSPACE complexity.
 
 As for the generalization to a \CGTDS instance $\P'$, having a \GTDS problem $\P$ as above and an $\omega$-regular constraint $e$, we cannot assume, as opposed to the case of Theorem~\ref{thm:TdsEP}, a unique solution to $\P$ -- there are possibly infinitely many different solutions, some of which satisfy $e$ and some do not. Thus, we cannot just check the membership of some solution in the language of $e$, as is done in the proof of Theorem~\ref{thm:TdsEP}.
 
-Yet, we can have a nondeterministic B\"uchi automaton $\A$ (which is even a safety automaton, namely all its states are accepting) that recognizes all eventually-periodic solutions of $\P$, as well as some non-eventually periodic solutions, while possibly not all of them: The states of $\A$ are all the gaps along the exploration that have denominator $d$ and value up to $\frac{\lambda \Dm{k}}{1 - \lambda}$ -- once the gap is bigger than $\frac{\lambda \Dm{k}}{1 - \lambda}$, it cannot lead to a solution, and once the gap's denominator is different from $d$, it cannot lead to an eventually-periodic solution (as shown in the proof of Lemma~\ref{lem:EP}). Hence, $\A$ has up to $d \cdot \Dm{k}$ states.
+Yet, we can have a nondeterministic B\"uchi automaton $\A$ (which is even a safety automaton, namely all its states are accepting) that recognizes all eventually-periodic solutions of $\P$, as well as some non-eventually periodic solutions, while possibly not all of them: The states of $\A$ are all the gaps along the exploration that have denominator $d$ and value up to $\frac{\lambda \Dm{k}}{1 - \lambda}$ -- once the gap is bigger than $\frac{\lambda \Dm{k}}{1 - \lambda}$, it cannot lead to a solution, and once the gap's denominator is different from $d$, it cannot lead to an eventually-periodic solution (as shown in the proof of Lemma~\ref{lem:EP}). Hence, $\A$ has up to $d \cdot \frac{\lambda \Dm{k}}{1 - \lambda}$ states.
 
-Now, let $\B$ be a nondeterministic B\"uchi automaton that recognizes the language of $e$ (which is of size up to twice the length of $e$), and $\C$ a nondeterministic B\"uchi automaton for the intersection of $\A$ and $\B$ (which is of size up to $2\cdot|\A|\cdot|\B|$). We can check in time linear in the size of $\C$ whether it is empty, and conclude that there is an eventually-periodic solution to $\P'$ iff $\C$ is not empty. Indeed, even though $\A$ also allows for non-eventually-periodic solutions, due to the $\omega$-regularity of $\C$, it is guaranteed that if $\C$ is not empty, then there is an eventually-periodic word in its language, whose prefix and period together are of length at most $|\C|$.
-
-%See Example E at the end of the section.
+Now, let $\B$ be a nondeterministic B\"uchi automaton that recognizes the language of $e$ (which is of size up to twice the length of $e$), and $\C$ a nondeterministic B\"uchi automaton for the intersection of $\A$ and $\B$ (which is of size up to $|\A|\cdot|\B|$). We can check in time linear in the size of $\C$ whether it is empty, and conclude that there is an eventually-periodic solution to $\P'$ iff $\C$ is not empty. Indeed, even though $\A$ also allows for non-eventually-periodic solutions, due to the $\omega$-regularity of $\C$, it is guaranteed that if $\C$ is not empty, then there is an eventually-periodic word in its language, whose prefix and period together are of length at most $|\C|$.
 \end{proof} 
 
 
 
-\begin{exampleE}
-Consider the \CGTDS instance with a discount factor $\lambda=\frac{2}{3}$, the target $t=\frac{12}{5}$,
-and weights $a=0$, $b=1$, and $c=2$.
-Furthermore, we consider an $\omega$-regular constraint 
-$e := \Sigma^*(\Sigma a)^\omega$, namely eventually the letter a occurs at every second position.
+\begin{exampleE}[for the proof of Theorem~\ref{thm:GTDSEventuallyPeriodic}]
+Consider the \CGTDS instance with a discount factor $\lambda=\frac{2}{3}$, a target $t=\frac{12}{5}$,
+weights $a=0$, $b=1$, and $c=2$, and an $\omega$-regular constraint 
+$e = \Sigma^*(\Sigma a)^\omega$, namely eventually the letter a occurs at every second position.
+We follow the proof of Theorem~\ref{thm:GTDSEventuallyPeriodic} for cheking whether it has an eventually-periodic solution. 
 
-We follow the proof of Theorem~\ref{thm:GTDSEventuallyPeriodic}. The first gap is $t \cdot \lambda = \frac{8}{5}$.
-The minimal recoverable gap is $0$, and the maximal recoverable gap is 
-$\frac{\lambda c}{1-\lambda} = \frac{\frac{2}{3} 2}{\frac{1}{3}} = 4$. 
-
-Now, we build the safety automaton $\A$ of the relevant gaps along the exploration of $t$. 
-First, we build a labelled graph of gaps corresponding to all explorations starting from $\frac{8}{5}$ 
-and prune it, once 
-it is clear that the exploration does not lead to an ultimately periodic representation. 
-Therefore, 
-We only consider recoverable gaps whose denominator is 5, i.e., between $\frac{0}{5}$ and $\frac{20}{5}$. 
+We start with building the safety automaton $\A$ of the relevant gaps along the exploration of $t$ (see Figure~\ref{fig:EP}):
+The first gap is $t \cdot \lambda = \frac{8}{5}$. The minimal relevant gap is $0$, the maximal relevant gap is 
+$\frac{\lambda c}{1-\lambda} = \frac{\frac{2}{3} 2}{\frac{1}{3}} = 4$, and all relevant gaps have denominator $5$ (as otherwise they cannot be continued to an eventually-periodic solution). 
 Moreover, following the argument in the proof of Lemma~\ref{lem:EP}, 
-we can omit further exploration of gaps whose numerator is odd 
-as all its continuations will have denominators growing to infinity. Thus, there can be no ultimately-periodic  
-representation. 
+we can omit further exploration of gaps whose numerator is odd, 
+as all its continuations will have denominators different from $5$. 
 \begin{figure}
-\begin{tikzpicture}
-\tikzset{good/.style={black, draw=blue,thick, fill=green!20,minimum size=1.1cm}}
-\tikzset{tooBig/.style={black, draw=red,thick, fill=red!20, minimum size=1.1cm}}
-\tikzset{odd/.style={black, draw=yellow,thick, fill=yellow!20, minimum size=1.1cm}}
+\begin{tikzpicture}[semithick,initial text=, every initial by arrow/.style={|->},state/.style={circle, draw, thick, minimum size=0.9cm,inner sep=0,outer sep=0}]
+\tikzset{good/.style={}}
+\tikzset{tooBig/.style={fill=red!20}}
+\tikzset{odd/.style={fill=orange!20}}
 
-\foreach \n/\x/\y\l/\f in {Eps/0/0/{\frac{8}{5}}/good,
+\node[anchor=west]  (A) at (-1.0,4.5) {\Large$\A$};
+\node[anchor=west]  (A_TooBig) at (-1.0,3.9) {{\color{red} Red gaps}: Too big/small};
+\node[anchor=west]  (A_Odd) at (-1.0,3.5) {{\color{orange} Orange gaps}: Odd numerator};
+
+\node[state,initial, good] (Eps) at (0,0) {$\frac{8}{5}$}; 
+\foreach \n/\x/\y\l/\f in {
 						a/2/2/{\frac{12}{5}}/good,
 						aa/4/2.75/{\frac{18}{5}}/good,
 						ab/4/1.25/{\frac{13}{5}}/odd,
@@ -630,7 +627,7 @@ representation.
                         cb/4/-2/{\frac{-2}{5}}/tooBig,
                         cc/4/-3.5/{\frac{-7}{5}}/tooBig}
 {
-	\node[draw,circle,\f] (\n) at (\x,\y) {$\l$}; 
+	\node[state,\f] (\n) at (\x,\y) {$\l$}; 
 }
 
 \foreach \from/\to/\lab in {Eps/a/a,
@@ -652,82 +649,78 @@ representation.
 \draw[->,bend right] (a) to node[above]{c} (Eps) ;
 
 \begin{scope}[xshift=9cm,yshift=2cm]
-
-\node[draw,circle,good] (q0) at (0,0) {$\frac{8}{5}$};
-\node[draw,circle,good] (q1) at (0,-3) {$\frac{12}{5}$};
+	
+\node[anchor=west]  (A) at (-0.75,2.5) {\Large$\A$};
+\node[anchor=west]  (A_TooBig) at (-0.75,1.9) {When ignoring dead-end states};
+	
+\node[state, initial above] (q0) at (0,0) {$\frac{8}{5}$};
+\node[state] (q1) at (0,-3) {$\frac{12}{5}$};
 
 \draw[->,bend left] (q0) to node[left]{a} (q1) ;
 \draw[->,bend left] (q1) to node[right]{c} (q0) ;
 
 \end{scope}
 
-\end{tikzpicture}
+\begin{scope}[xshift=0cm,yshift=-6cm]
+\node[anchor=west]  (B) at (-1.0,1.8) {\Large$\B$};
 
-\caption{The graph of pruned explorations is on the left, while the corresponding B\"uchi automaton $\A$ is on the right. }
-
-\end{figure}
-
-The nondeterministic B\"uchi automaton $\B$ representing the constraint $e$ is presented in the figure below along
-with the B\"uchi automaton $\C$ that recognizes the intersection of the languages of $\A$ and $\B$. 
-Notice that the intersection of a safety automaton and a B\"uchi automaton is the B\"uchi automaton 
-derived by their product, and in taking the product we can ignore dead-end states.
-
-\begin{figure}
-\begin{tikzpicture}
-
-\node[draw,circle] (q0) at (0,0) {$q_0$};
-\node[draw,circle] (q1) at (2,0) {$q_1$};
-\node[draw,circle] (q2) at (4,0) {$q_2$};
-
-\node[draw,circle,minimum size=0.5cm] (q1acc) at (2,0) {};
-\node[draw,circle,minimum size=0.5cm] (q2acc) at (4,0) {};
+\node[state,initial] (q0) at (0,0) {$q_0$};
+\node[state] (q1) at (2,0) {$q_1$};
+\node[state,accepting] (q2) at (4,0) {$q_2$};
 
 \draw[->, loop above] (q0) to node[above]{a,b,c} (q0) ;
 \draw[->,bend left] (q0) to node[above]{a,b,c} (q1) ;
 \draw[->,bend left] (q1) to node[above]{a,b,c} (q2) ;
 \draw[->,bend left] (q2) to node[below]{a} (q1) ;
-
-\begin{scope}[xshift=6cm,yshift=1cm]
-
-\foreach \lab/\gap/\y in {A/{\frac{8}{5}}/0, B/{\frac{12}{5}}/-3}
-{
-	\node[draw,circle] (q0\lab) at (0,\y) {$q_0,\gap$};
-	\node[draw,circle] (q1\lab) at (2.5,\y) {$q_1,\gap$};
-	\node[draw,circle] (q2\lab) at (5,\y) {$q_2,\gap$};
-}
-
-\draw[->,bend right] (q0A) to node[left]{a} (q0B);
-\draw[->,bend right] (q0B) to node[left]{c} (q0A);
-
-\draw[->, bend left=10] (q0B) to node[above, yshift=15pt, xshift=10pt ] {c} (q1A);
-\draw[->,bend left=10] (q0A) to node[below, yshift=-15pt,xshift=10pt ]{a} (q1B);
-
-\draw[->,bend right=20] (q1B) to node[below]{c} (q2A);
-\draw[->, bend left] (q1A) to node[above]{a} (q2B);
-
-\draw[->,bend right=20] (q2A) to node[above]{a} (q1B);
-
 \end{scope}
+
+\begin{scope}[xshift=7cm,yshift=-5cm]
+\node[anchor=west]  (C) at (-1.0,0.8) {\Large$\C$};
+	
+\node[state,initial] (q0A) at (0,0) {$q_0,\frac{8}{5}$};
+\node[state] (q0B) at (0,-2) {$q_0,\frac{12}{5}$};
+\node[state] (q1A) at (2.5,0) {$q_1,\frac{8}{5}$};
+\node[state] (q1B) at (2.5,-2) {$q_1,\frac{12}{5}$};
+\node[state,accepting] (q2A) at (5,0) {$q_2,\frac{8}{5}$};
+\node[state,accepting] (q2B) at (5,-2) {$q_2,\frac{12}{5}$};
+
+	\draw[->,bend right] (q0A) to node[left]{a} (q0B);
+	\draw[->,bend right] (q0B) to node[left]{c} (q0A);
+	
+	\draw[->, bend left=10] (q0B) to node[above, yshift=-10pt, xshift=-10pt ] {c} (q1A);
+	\draw[->,bend left=10] (q0A) to node[below, yshift=0pt,xshift=0pt ]{a} (q1B);
+	
+	\draw[->,bend right=20] (q1B) to node[below]{c} (q2A);
+	\draw[->, bend left] (q1A) to node[above,yshift=5pt,xshift=-10pt]{a} (q2B);
+	
+	\draw[->,bend right=20] (q2A) to node[above,yshift=-5pt,xshift=-5pt]{a} (q1B);
+	
+\end{scope}
+
+
 
 \end{tikzpicture}
 
-\caption{The B\"uchi automaton $\B$ for $e$ is on the left, while the product automaton $\C$ is on the right.}
+\caption{The automata of the example for the proof of Theorem~\ref{thm:GTDSEventuallyPeriodic}: The safety automaton $\A$ for the exploration of the relevant gaps (stopping the exploration for too big/small gaps and for gaps with odd numerators), the B\"uchi automton $\B$ expressing the $\omega$-regular constraint, and the B\"uchi automton $\C$ for the intersection of $\A$ and $\B$.}
+\label{fig:EP}
 
 \end{figure}
 
-The language of $\C$ is not empty; it consists of a single ultimately periodic word $w=(ac)^\omega$.
+Next, we build  the B\"uchi automaton $\B$ expressing the constraint $e$, and the B\"uchi automaton $\C$ for the intersection of $\A$ and $\B$.
+Notice that the intersection of a safety automaton and a B\"uchi automaton is the B\"uchi automaton 
+derived from their product, in which we can also ignore dead-end states.
+
+
+Finally, we check for the nonemptiness of $\C$: In this case, it is not empty, having the word $w=a(ca)^\omega$, which is an eventually-periodic solution to the considered \CGTDS instance. 
 Observe that indeed, $(\Dz.(20)^{\omega})_{[\frac{1}{\lambda}]}$ is the required target $\frac{12}{5}$.
+\qed
 \end{exampleE}
 
-\begin{exampleE}
-In contrast to the above example, ultimately-periodic solutions to $\CGTDS$ does not need to be unique.
-Consider $\lambda = \frac{1}{2}$ and weights $0,1,2$. Then, 
-\[ 
+Notice that in contrast to the above example, eventually-periodic solutions to $\CGTDS$ need not be unique. For example, 
+consider $\lambda = \frac{1}{2}$ and weights $0,1,2$. Then, 
+$ 
 \Dz.(10)^{\omega})_{[\frac{1}{\lambda}]} = \Dz.(02)^{\omega})_{[\frac{1}{\lambda}]}
-\]
-
-
-\end{exampleE}
+$.
 
 As a corollary of Lemma~\ref{lem:GeneralizedEventuallyPeriodicGaps}, we get the decidability for the case that the discount factor is of the form $\frac{1}{n}$ for $n\in\Nat$.
 
@@ -743,66 +736,47 @@ Indeed, if a gap $g = \frac{a}{d}$ then the next gap, after using a digit $m$, i
 Therefore, analogously to the arguments given in the proof of Theorem~\ref{thm:GTDSEventuallyPeriodic}, we get a bound on the gap numerators, implying decidability in PSPACE of both the \GTDS and the \CGTDS instances.
 \end{proof}
 
-% \begin{exampleE}
-% Consider a \CGTDS instance with the discount factor $\lambda = \frac{3}{5}$, 
-% natural weights $0,3,6,7$ and the target $\frac{51}{8}$.
-
-% The greedy exploration works as follows.
-% The initial gap is $\frac{414}{125}$ and the numerator $3$ of $\lambda$ divides $414$. 
-% The maximal possible weight is $3$ and the next gap is $\frac{63}{125}$. 
-% Again, $3$ divides $63$ and the maximal weight to keep the gap non-negative is $3$. The resulting gap is $\frac{6}{5}$.
-% While $3$ divides $6$ and the only weight to keep the gap non-negative is $0$, but then the gap becomes $2$ and the numerator is not divisible by $3$.
-
-% However, observe that $\frac{414}{125}$ can be represented with the expansion $(\Dz.307)_{[\frac{1}{\lambda}]}$:
-% \[
-% \frac{414}{125} = 3\cdot \frac{3}{5} + 0 \cdot \left(\frac{3}{5}\right)^2 + 7 \cdot \left(\frac{3}{5}\right)^3 = \frac{225}{125} + \frac{189}{125}
-% \]
-% the sequence of gaps is as follows: $\frac{414}{125}, \frac{63}{25}, \frac{21}{5}$ and finally $0$.
-% \end{exampleE}
-
 We conclude the section with the result on the decidability of the generalized target discounted-sum problem over finite words.
 
 
 \begin{restatable}{theorem}{GTDSFinite}
 \label{thm:GTDSFinite}
 Consider an instance $\P$ of \CGTDSF (or \GTDSF) with a regular constraint $e$, and a rational discount factor $\lambda=\frac{p}{q}$, a target $t=\frac{c}{d}$, and weights $\Dm{1} < \Dm{2} < \ldots < \Dm{k} \in \Rat$ with common denominator $m\in\Nat$. Then the problem of whether $\P$ has an eventually-periodic solution is decidable in PSPACE.
-Moreover, if there is a solution to $\P$, then there is also a solution of length up to $4\cdot d(q-p) \cdot (|e|+2) \cdot 2\max(|\Dm{k}|,|\Dm{1}|) \cdot m$.
+Moreover, if there is a solution to $\P$, then there is also a solution of length up to $4\cdot d(q-p) \cdot (|e|+2) \cdot \max(|\Dm{k}|,|\Dm{1}|) \cdot \frac{m}{1-\lambda}$.
 
 
 \end{restatable}
 \begin{proof}
 By the proof of Theorem~\ref{t:FiniteTdsToCgtds}, an instance $\P$ of \CGTDSF can be reduced to an instance $\P'$ of \CGTDS, having the same input as $\P$, except for possibly adding a $0$ weight, and concatenating to the constraint $e$ the suffix $0^\omega$ of length 2. 
 
-By the proof of Theorem~\ref{thm:GTdsToGTdszo}, an instance $\P'$ of \CGTDS can be reduced to an instance $\P''$ of \CGTDS in normal form, where the new target is $t''= (t\cdot m) - \frac{\Dm{1}\cdot m\cdot\lambda}{1 - \lambda} = \frac{c\cdot m (q-p) - d(\Dm{1}\cdot m \cdot p)}{d(q-p)}$ and the new highest weight is $\Dm{k}''=(\Dm{k}-\Dm{1})m$ if $\Dm{1}<0$ and $\Dm{k}>0$, or $\Dm{k}''=|\Dm{k}|m$ if $\Dm{1}\geq 0$ and $\Dm{k}>0$, or $\Dm{k}''=|\Dm{1}|m$ if $\Dm{1}<0$ and $\Dm{k}\leq0$, implying that in any case $\Dm{k}''\leq 2\max(|\Dm{k}|,|\Dm{1}|) \cdot m$.
+By the proof of Theorem~\ref{thm:GTdsToGTdszo}, an instance $\P'$ of \CGTDS can be reduced to an instance $\P''$ of \CGTDS in normal form, where the new target is 
+$t''= (t\cdot m) - \frac{\Dm{1}\cdot m}{1 - \lambda} = 
+\frac{m (c(q-p) - d(\Dm{1}\cdot q))}{d(q-p)}$ 
+and the new highest weight is $\Dm{k}''=(\Dm{k}-\Dm{1})m$ if $\Dm{1}<0$ and $\Dm{k}>0$, or $\Dm{k}''=|\Dm{k}|m$ if $\Dm{1}\geq 0$ and $\Dm{k}>0$, or $\Dm{k}''=|\Dm{1}|m$ if $\Dm{1}<0$ and $\Dm{k}\leq0$, implying that in any case $\Dm{k}''\leq 2\max(|\Dm{k}|,|\Dm{1}|) \cdot m$.
 
 Hence, the PSPACE decidability and the bound on a shortest witness directly follows from Theorem~\ref{thm:GTDSEventuallyPeriodic}.
 %See Example E at the end of the section.
 \end{proof}
 
-\begin{exampleE}
-Consider a \GTDS instance with the same $\lambda = \frac{2}{3}$, natural weights $0,1,2$ and 
-the target $\frac{40}{27}$.
-The greedy exploration works as follows.
-The initial gap is $\frac{80}{81}$ and the numerator $2$ of $\lambda$ divides $80$. 
-The only possible weight to keep the gap non-negative is $0$.
-The next gap is $\frac{40}{27}$ and again $2$ divides $40$. 
-The maximal weight to keep the gap non-negative is $2$ as $\frac{40}{27} \cdot \frac{3}{2} = \frac{20}{9}$. 
-The next gap is $\frac{2}{9}$. For this gap, the only possible weight to keep gaps non-negative is $0$, but 
-then the next gap is $\frac{1}{3}$ and its numerator is odd.
-
-However, observe that $\frac{40}{27}$ can be represented with the expansion $(\Dz.0022)_{[\frac{1}{\lambda}]}$:
-\[
-\frac{40}{27} =  2 \cdot \left(\frac{2}{3}\right)^3 + 2 \cdot \left(\frac{2}{3}\right)^4 = 
-\frac{16}{27} + \frac{32}{81}
-\]
-the sequence of gaps is as follows: $\frac{80}{81},\frac{40}{27},\frac{20}{9},\frac{4}{3}$ and finally $0$.
-\end{exampleE}
-
-
-% The following example, which does not appear in the LICS paper, has no number for keeping the numbering of the other theorems and alike as in the LICS paper.
 %\begin{exampleE}
-%\todo{Add a detailed example of resolving \CGTDSF, going through all the steps in the proofs of Theorems~\ref{t:FiniteTdsToCgtds},\ref{thm:GTdsToGTdszo},\ref{thm:GTDSEventuallyPeriodic},\ref{thm:GTDSFinite}.} 
+%Consider a \GTDS instance with the same $\lambda = \frac{2}{3}$, natural weights $0,1,2$ and 
+%the target $\frac{40}{27}$.
+%The greedy exploration works as follows.
+%The initial gap is $\frac{80}{81}$ and the numerator $2$ of $\lambda$ divides $80$. 
+%The only possible weight to keep the gap non-negative is $0$.
+%The next gap is $\frac{40}{27}$ and again $2$ divides $40$. 
+%The maximal weight to keep the gap non-negative is $2$ as $\frac{40}{27} \cdot \frac{3}{2} = \frac{20}{9}$. 
+%The next gap is $\frac{2}{9}$. For this gap, the only possible weight to keep gaps non-negative is $0$, but 
+%then the next gap is $\frac{1}{3}$ and its numerator is odd.
+%
+%However, observe that $\frac{40}{27}$ can be represented with the expansion $(\Dz.0022)_{[\frac{1}{\lambda}]}$:
+%\[
+%\frac{40}{27} =  2 \cdot \left(\frac{2}{3}\right)^3 + 2 \cdot \left(\frac{2}{3}\right)^4 = 
+%\frac{16}{27} + \frac{32}{81}
+%\]
+%the sequence of gaps is as follows: $\frac{80}{81},\frac{40}{27},\frac{20}{9},\frac{4}{3}$ and finally $0$.
 %\end{exampleE}
+
 
 \section{Results on Discounted-Sum Automata}\label{sec:DSA}
 
