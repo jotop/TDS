@@ -584,7 +584,7 @@ Savitch's Theorem, from which we have PSPACE = NPSPACE, we get the PSPACE comple
 
 As for the generalization to a \CGTDS instance $\P'$, having a \GTDS problem $\P$ as above and an $\omega$-regular constraint $e$, we cannot assume, as opposed to the case of Theorem~\ref{thm:TdsEP}, a unique solution to $\P$ -- there are possibly infinitely many different solutions, some of which satisfy $e$ and some do not. Thus, we cannot just check the membership of some solution in the language of $e$, as is done in the proof of Theorem~\ref{thm:TdsEP}.
 
-Yet, we can have a nondeterministic B\"uchi automaton $\A$ (which is even a safety automaton, namely all its states are accepting) that recognizes all eventually-periodic solutions of $\P$, as well as some non-eventually periodic solutions, while possibly not all of them: The states of $\A$ are all the gaps along the exploration that have denominator $d$ and value up to $\frac{\lambda \Dm{k}}{1 - \lambda}$ -- once the gap is bigger than $\frac{\lambda \Dm{k}}{1 - \lambda}$, it cannot lead to a solution, and once the gap's denominator is different from $d$, it cannot lead to an eventually-periodic solution (as shown in the proof of Lemma~\ref{lem:EP}). Hence, $\A$ has up to $\lfloor d \cdot \frac{\lambda \Dm{k}}{1 - \lambda} \rfloor$ states.
+Yet, we can have a nondeterministic B\"uchi automaton $\A$ (which is even, after the removal of dead-end states, a safety automaton, namely a B\"uchi automaton all of whose states are accepting) that recognizes all eventually-periodic solutions of $\P$, as well as some non-eventually periodic solutions, while possibly not all of them: The states of $\A$ are all the gaps along the exploration that have denominator $d$ and value up to $\frac{\lambda \Dm{k}}{1 - \lambda}$ -- once the gap is bigger than $\frac{\lambda \Dm{k}}{1 - \lambda}$, it cannot lead to a solution, and once the gap's denominator is different from $d$, it cannot lead to an eventually-periodic solution (as shown in the proof of Lemma~\ref{lem:EP}). Hence, $\A$ has up to $\lfloor d \cdot \frac{\lambda \Dm{k}}{1 - \lambda} \rfloor$ states.
 
 Now, let $\B$ be a nondeterministic B\"uchi automaton that recognizes the language of $e$ (which is of size up to twice the length of $e$), and $\C$ a nondeterministic B\"uchi automaton for the intersection of $\A$ and $\B$ (which is of size up to $|\A|\cdot|\B|$). We can check in time linear in the size of $\C$ whether it is empty, and conclude that there is an eventually-periodic solution to $\P'$ iff $\C$ is not empty. Indeed, even though $\A$ also allows for non-eventually-periodic solutions, due to the $\omega$-regularity of $\C$, it is guaranteed that if $\C$ is not empty, then there is an eventually-periodic word in its language, whose prefix and period together are of length at most $|\C|$.
 \end{proof} 
@@ -602,10 +602,10 @@ The first gap is $t \cdot \lambda = \frac{8}{5}$. The minimal relevant gap is $0
 $\frac{\lambda c}{1-\lambda} = \frac{\frac{2}{3} \cdot 2}{\frac{1}{3}} = 4$, and all relevant gaps have denominator $5$ (as otherwise they cannot be continued to an eventually-periodic solution). 
 Moreover, following the argument in the proof of Lemma~\ref{lem:EP}, 
 we can omit further exploration of gaps with odd numerator  
-as all its continuations will have denominators different from $5$. 
+as all its continuations will have denominators growing to infinity. 
 \begin{figure}
 \begin{tikzpicture}[semithick,initial text=, every initial by arrow/.style={|->},state/.style={circle, draw, thick, minimum size=0.9cm,inner sep=0,outer sep=0}]
-\tikzset{good/.style={}}
+\tikzset{good/.style={accepting}}
 \tikzset{tooBig/.style={fill=red!20}}
 \tikzset{odd/.style={fill=orange!20}}
 
@@ -651,10 +651,10 @@ as all its continuations will have denominators different from $5$.
 \begin{scope}[xshift=9cm,yshift=2cm]
 	
 \node[anchor=west]  (A) at (-0.75,2.5) {\Large$\A$};
-\node[anchor=west]  (A_TooBig) at (-0.75,1.9) {When ignoring dead-end states};
+\node[anchor=west]  (A_TooBig) at (-0.75,1.9) {After removing dead-end states};
 	
-\node[state, initial above] (q0) at (0,0) {$\frac{8}{5}$};
-\node[state] (q1) at (0,-3) {$\frac{12}{5}$};
+\node[state, initial above,accepting] (q0) at (0,0) {$\frac{8}{5}$};
+\node[state,accepting] (q1) at (0,-3) {$\frac{12}{5}$};
 
 \draw[->,bend left] (q0) to node[left]{a} (q1) ;
 \draw[->,bend left] (q1) to node[right]{c} (q0) ;
@@ -742,7 +742,7 @@ We conclude the section with the result on the decidability of the generalized t
 \begin{restatable}{theorem}{GTDSFinite}
 \label{thm:GTDSFinite}
 Consider an instance $\P$ of \CGTDSF (or \GTDSF) with a regular constraint $e$, and a rational discount factor $\lambda=\frac{p}{q}$, a target $t=\frac{c}{d}$, and weights $\Dm{1} < \Dm{2} < \ldots < \Dm{k} \in \Rat$ with a common denominator $m\in\Nat$. Then the problem of whether $\P$ has an eventually-periodic solution is decidable in PSPACE.
-Moreover, if there is a solution to $\P$, then there is also a solution of length up to $4\cdot d(q-p) \cdot (|e|+2) \cdot \max(|\Dm{k}|,|\Dm{1}|) \cdot \frac{\lambda \cdot m}{1-\lambda}$.
+Moreover, if there is a solution to $\P$, then there is also a solution of length up to $4\cdot d(q-p) \cdot (|e|+2) \cdot \max(|\Dm{k}|,|\Dm{1}|) \cdot \frac{m}{1-\lambda}$.
 
 
 \end{restatable}
