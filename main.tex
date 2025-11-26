@@ -496,17 +496,17 @@ Consider an instance $\P$ of \CGTDS with a discount factor $\lambda$, a target $
 Let $M$ be the least common denominator of the weights. 
 We define a \CGTDS $\P'$ with a discount factor $\lambda$, a target $t'=t\cdot M$, weights $\Dm{1}'=\Dm{1}\cdot M, \ldots, \Dm{k}'=\Dm{k}\cdot M $, and a constraint $e'$ that is the same as $e$, just referring to $\Dm{i}'$ instead of $\Dm{i}$, for all $1\leq i \leq k$. Note that all the weights in $\P'$ are integers. Now, observe that  $\P$ has a solution (resp.\ eventually-periodic solution) iff $\P'$ has a solution (resp.\ eventually-periodic solution), since for every sequence $w$, we have $\sum_{i=0}^{|w|} M \cdot w(i)  \lambda^i = M \cdot \sum_{i=0}^{|w|}  w(i)  \lambda^i$.
 Finally, for having the least weight $0$, we subtract $\Dm{1}\cdot M$ from all weights, having the \CGTDS instance $\P''$ with a discount factor $\lambda$, a target $t''=(t\cdot M) - \frac{\Dm{1}\cdot M}{1 - \lambda}$, weights $\Dm{1}''=0, \Dm{2}''=(\Dm{2}-\Dm{1}) \cdot M, \ldots, \Dm{k}''=(\Dm{k}-\Dm{1})\cdot M $, and a constraint $e''$ that is the same as $e$, just referring to $\Dm{i}''$ instead of $\Dm{i}$, for all $1\leq i \leq k$.
-Notice that $\P''$ is in normal form and equivalent to $\P$ by an argument analogous to part I in the proof of Theorem~\ref{thm:TdsToTdszo}.
+Notice that $\P''$ is in a normal form and equivalent to $\P$ by an argument analogous to part I in the proof of Theorem~\ref{thm:TdsToTdszo}.
 %See Example E at the end of the section.
 \end{proof}
 
 \begin{exampleE}
-Consider a \GTDS with $\lambda = \frac{3}{5}$, weights $\frac{-1}{2}, 0, \frac{1}{2},\frac{2}{3}$ and the target $\frac{-99}{500}$. It reduces to 
-a \GTDS instance with the same $\lambda = \frac{3}{5}$, natural weights $0,3,6,7$ and the target $\frac{789}{125}$.
+Consider a \GTDS instancde with $\lambda = \frac{2}{3}$, weights $\frac{-1}{2}, 0, \frac{1}{2}$ and the target $\frac{-3}{10}$. 
+It reduces to a \GTDS instance with the same $\lambda = \frac{2}{3}$, natural weights $0,1,2$ and the target $\frac{12}{5}$.
 \end{exampleE}
 
 
-In the remaining part of this section we will assume that all instances of \GTDS and \CGTDS are in normal form. This allows us to consider the problem in the setting of $\beta$-expansions.
+In the remaining part of this section we will assume that all instances of \GTDS and \CGTDS are in a normal form. This allows us to consider the problem in the setting of $\beta$-expansions.
 
 \begin{proposition}
 A \GTDS with a discount factor $\lambda$, a target value $t$, and weights $\Dm{1}=0  < \Dm{2} < \ldots < \Dm{k} \in \Nat$ has a solution iff $t$ has a representation in base $\frac{1}{\lambda}$, using only the digits $\Dm{1}, \ldots, \Dm{k}$.
@@ -747,7 +747,7 @@ Moreover, if there is a solution to $\P$, then there is also a solution of lengt
 \begin{proof}
 By the proof of Theorem~\ref{t:FiniteTdsToCgtds}, an instance $\P$ of \CGTDSF can be reduced to an instance $\P'$ of \CGTDS, having the same input as $\P$, except for possibly adding a $0$ weight, and concatenating to the constraint $e$ the suffix $0^\omega$ of length 2. 
 
-By the proof of Theorem~\ref{thm:GTdsToGTdszo}, an instance $\P'$ of \CGTDS can be reduced to an instance $\P''$ of \CGTDS in normal form, where the new target is 
+By the proof of Theorem~\ref{thm:GTdsToGTdszo}, an instance $\P'$ of \CGTDS can be reduced to an instance $\P''$ of \CGTDS in a normal form, where the new target is 
 $t''= (t\cdot m) - \frac{\Dm{1}\cdot m}{1 - \lambda} = 
 \frac{m (c(q-p) - d(\Dm{1}\cdot q))}{d(q-p)}$ 
 and the new highest weight is $\Dm{k}''=(\Dm{k}-\Dm{1})m$ if $\Dm{1}<0$ and $\Dm{k}>0$, or $\Dm{k}''=|\Dm{k}|m$ if $\Dm{1}\geq 0$ and $\Dm{k}>0$, or $\Dm{k}''=|\Dm{1}|m$ if $\Dm{1}<0$ and $\Dm{k}\leq0$, implying that in any case $\Dm{k}''\leq 2\max(|\Dm{k}|,|\Dm{1}|) \cdot m$.
