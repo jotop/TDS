@@ -1,8 +1,8 @@
-\documentclass{lipics-v2021}
+\documentclass[a4paper,UKenglish,cleveref, autoref]{lipics-v2021}
 %\usepackage{microtype}%if unwanted, comment out or use option "draft"
 \bibliographystyle{plain}% the recommended bibstyle
 
-\pagestyle{plain}
+%\pagestyle{plain}
 
 \usepackage{amssymb,amsmath,latexsym,amsthm}
 \usepackage{xspace}
@@ -87,7 +87,8 @@
 \newcommand{\Skip}[1]{}
 
 
-%\author{Joan R. Public\footnote{Optional footnote, e.g. to mark corresponding author}}{Department of Informatics, Dummy College, [optional: Address], Country}{joanrpublic@dummycollege.org}{[orcid]}{[funding]}
+\hideLIPIcs
+\nolinenumbers 
 
 \author{Udi Boker}{Reichman University, \\
 Herzliya, Israel}
@@ -108,6 +109,9 @@ Klosterneuburg, Austria}
 {0000-0002-8804-8011}
 {}
 
+\ccsdesc[500]{Theory of computation~Formal languages and automata theory}
+
+\keywords{algorithms, automata, discrete mathematics} 
 
 
 \title{The Target Discounted-Sum Problem}
